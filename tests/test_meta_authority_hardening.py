@@ -78,7 +78,7 @@ def test_retry_after_cannot_break_bounded_retry(header):
 
 
 def test_shadow_workflow_requires_explicit_material_change_and_has_no_push_trigger():
-    workflow = (Path(__file__).parents[2] / ".github/workflows/public-presence-shadow.yml").read_text()
+    workflow = (Path(__file__).resolve().parents[1] / ".github/workflows/public-presence-shadow.yml").read_text()
     triggers = workflow.split("permissions:", 1)[0]
     assert "workflow_dispatch:" in triggers
     assert "material_change_reference:" in triggers

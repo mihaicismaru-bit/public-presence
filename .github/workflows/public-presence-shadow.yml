@@ -23,7 +23,7 @@ jobs:
     environment: public-presence-shadow
     defaults:
       run:
-        working-directory: public-presence-os
+        working-directory: .
     env:
       META_APP_ID: "1488219383133581"
       META_USER_ACCESS_TOKEN: ${{ secrets.META_USER_ACCESS_TOKEN }}

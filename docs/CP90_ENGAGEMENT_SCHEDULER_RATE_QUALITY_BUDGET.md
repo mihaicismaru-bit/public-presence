@@ -104,7 +104,7 @@ CP90 focused tests cover:
 - Implementation merge commit: `abfb4d4dbb5962dad8ff311aae7ab7b8adfc5131`.
 - PUBLIC PRESENCE OS CI **#211 / run `35440446595` — SUCCESS** on the exact candidate head.
 - Pre-merge attestation confirmed no conflicting PPOS/workflow drift before merge.
-- Fresh post-merge comparison from `abfb4d4dbb5962dad8ff311aae7ab7b8adfc5131` to main `e86e513a1743e41c4956e3eb7ac56933cafacf2b` is **10 commits ahead / 0 behind** and contains **no `public-presence-os/**` changes**.
+- Fresh post-merge comparison from `abfb4d4dbb5962dad8ff311aae7ab7b8adfc5131` to main `e86e513a1743e41c4956e3eb7ac56933cafacf2b` is **10 commits ahead / 0 behind** and contains **no `**` changes**.
 - CP58 remains the global checkpoint; kill switch remains ENGAGED; LIVE AUTHORITY remains NONE.
 
 ## Safety statement
@@ -132,4 +132,4 @@ After closure-normalization merge: revert only the closure-normalization commit/
 
 ## NEXT EXACT ACTION
 
-Run exact-head PUBLIC PRESENCE OS CI for the closure-normalization branch and fresh-read the PR/current main/base drift. If and only if CI is terminal SUCCESS, the exact-head is unchanged and no conflicting `public-presence-os/**` drift appears, perform only the CP90 closure-normalization merge + post-merge readback. Do not start CP91 in the same run.
+Run exact-head PUBLIC PRESENCE OS CI for the closure-normalization branch and fresh-read the PR/current main/base drift. If and only if CI is terminal SUCCESS, the exact-head is unchanged and no conflicting `**` drift appears, perform only the CP90 closure-normalization merge + post-merge readback. Do not start CP91 in the same run.

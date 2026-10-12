@@ -51,4 +51,4 @@ This unit performs no account connection, OAuth, token/secret resolution, enviro
 Rollback target: CP82. Delete the four CP83 files and remove M52 from `module_registry.json`; CP58 remains the global control checkpoint.
 
 ## Next exact action
-After exact-head repository CI is available, read it. If fully green, re-read current `main`, verify zero overlapping `public-presence-os/**` drift and PR mergeability, then perform the bounded CP83 integration/closure step only. Do not start CP84 in the same run.
+After exact-head repository CI is available, read it. If fully green, re-read current `main`, verify zero overlapping `**` drift and PR mergeability, then perform the bounded CP83 integration/closure step only. Do not start CP84 in the same run.

@@ -22,8 +22,8 @@ Optional local tools may be used for inspection, but they are not runtime requir
 
 ## 3. Source checkout and authority check
 
-1. Checkout the canonical `mihaicismaru-bit/civora` repository.
-2. Enter `public-presence-os/`.
+1. Checkout the canonical `mihaicismaru-bit/public-presence` repository.
+2. Work from the repository root.
 3. Confirm `config/runtime_policy.json` declares `GITHUB_EXECUTABLE_SOURCE` and `GOOGLE_DRIVE_CHECKPOINT_EVIDENCE`.
 4. Confirm the runtime mode is `PRE_PILOT_DRY_RUN`.
 5. Do not copy historical Drive checkpoint prose into executable source. Historical modules remain evidence-bound until exact source bytes are recovered and validated.
@@ -84,7 +84,7 @@ Never bypass a HOLD by editing generated evidence. Correct the underlying config
 Use this sequence for every local rehearsal:
 
 1. Read the latest canonical Drive checkpoint and its rollback pointer.
-2. Read the current GitHub main commit for `public-presence-os/`.
+2. Read the current GitHub main commit for the repository root.
 3. Run repository validation and CP32 preflight.
 4. Confirm kill switch ENGAGED.
 5. Confirm `network_enabled=false`, `real_accounts_connected=false`, `publish_enabled=false`, `deploy_enabled=false`.

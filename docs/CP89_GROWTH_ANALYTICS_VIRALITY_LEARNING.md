@@ -92,7 +92,7 @@ The global checkpoint remains CP58 and the kill switch remains ENGAGED.
 - PUBLIC PRESENCE OS CI run **#205 / 35325310977** completed with terminal **SUCCESS** on that exact head.
 - PR #1223 merged as commit `f464d3f4eefe1e966597ac39e37c2a9a8ee9d3d4`.
 - Fresh current-main readback before this closure-normalization delta: `cd9b2a7bcf3ddb1772c262280fdc0fbb4334762d`.
-- Current main is 6 commits ahead / 0 behind the CP89 merge commit and those intervening changes are outside `public-presence-os/**`; no conflicting PPOS drift was observed.
+- Current main is 6 commits ahead / 0 behind the CP89 merge commit and those intervening changes are outside `**`; no conflicting PPOS drift was observed.
 - M58 closure marker is normalized to `PASS_CP89_GROWTH_ANALYTICS_VIRALITY_LEARNING_OFFLINE_TRUTH_BOUND_UNKNOWN_PRESERVING_NON_CAUSAL_NO_STRATEGY_MUTATION_NO_EXTERNAL_WRITE_LIVE_HOLD` while the global registry checkpoint remains CP58.
 
 This closure is **offline-only**. It does not authorize live account connection, OAuth, secrets, social API traffic, probes, publishing, replies/comments, deploys, or paid services.

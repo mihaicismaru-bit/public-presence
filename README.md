@@ -1,13 +1,22 @@
 # PUBLIC PRESENCE OS — TEXT/PHOTO
 
-Canonical executable-source layout introduced by CP30.
+Standalone canonical repository: https://github.com/mihaicismaru-bit/public-presence
+
+The Python distribution and CLI retain the public-presence-os name for compatibility. Run installation, tests and build commands from this repository root.
+
+```sh
+python -m pip install -e . pytest
+PYTHONPATH=src python -m pytest -q
+```
+
+Migration provenance, branch reconciliation and manual environment setup: [migration guide](docs/REPOSITORY_MIGRATION_2026-10-12.md).
 
 ## Authority split
 - **GitHub**: executable source, schemas/config, tests and CI.
 - **Google Drive**: checkpoints, evidence, decisions, changelog and rollback evidence.
 
 ## Safety posture
-Ready for credential-gated `READ_ONLY_REAL`. The current pilot activates Facebook Page and Instagram Professional. Threads is temporarily `HOLD_EXTERNAL` and can be re-enabled with `META_THREADS_ENABLED=true` once its tester authorization/token is available. LinkedIn remains API-gated, X excluded while paid, Bluesky HOLD_ROI. The live read runtime is GET-only and requires the global kill switch to remain engaged with `LIVE_WRITE=OFF`. No network publishing, scheduler write, queue mutation, deploy, paid-service dependency, external GREEN action, or owner write authority is enabled.
+Ready for credential-gated `READ_ONLY_REAL`. The current pilot activates Facebook Page and Instagram Professional. Threads remains disabled (`META_THREADS_ENABLED=false`) and `HOLD_EXTERNAL`. LinkedIn remains API-gated, X excluded while paid, Bluesky HOLD_ROI. The live read runtime is GET-only and requires the global kill switch to remain engaged with `LIVE_WRITE=OFF`. No network publishing, scheduler write, queue mutation, deploy, paid-service dependency, external GREEN action, or owner write authority is enabled.
 
 ## Validate
 `PYTHONPATH=src python -m public_presence_os.cli validate --root .`

@@ -132,4 +132,4 @@ The development sequence defined by the current roadmap ends at CP92. No CP93 is
 
 ## Next exact action
 
-Run exact-head PUBLIC PRESENCE OS CI for this CP92 closure-normalization candidate. If and only if CI is terminal `SUCCESS`, the candidate head remains stable, the PR is mergeable, and fresh `main` shows no conflicting `public-presence-os/**` or workflow drift, merge only the CP92 closure normalization and perform post-merge readback. Do not create or start CP93.
+Run exact-head PUBLIC PRESENCE OS CI for this CP92 closure-normalization candidate. If and only if CI is terminal `SUCCESS`, the candidate head remains stable, the PR is mergeable, and fresh `main` shows no conflicting `**` or workflow drift, merge only the CP92 closure normalization and perform post-merge readback. Do not create or start CP93.

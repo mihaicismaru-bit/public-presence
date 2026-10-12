@@ -1,0 +1,472 @@
+[
+  {
+    "source_branch": "codex-public-presence-cp73-terminal-tombstone-reconciliation-v1",
+    "filtered_sha": "0c886256f52d3b834503aae56113b5237531aa29",
+    "archive_tag": "archive/civora/branch/codex-public-presence-cp73-terminal-tombstone-reconciliation-v1"
+  },
+  {
+    "source_branch": "codex-public-presence-cp74-terminal-tombstone-rebuild-recovery-v1",
+    "filtered_sha": "34ef51f89c2e349d6b8ce09241c499399ea63dbf",
+    "archive_tag": "archive/civora/branch/codex-public-presence-cp74-terminal-tombstone-rebuild-recovery-v1"
+  },
+  {
+    "source_branch": "feat/ppos-cp47-m14-experiments",
+    "filtered_sha": "1f8fc5e23dabea2fbef47095ac362bc95de5cb13",
+    "archive_tag": "archive/civora/branch/feat/ppos-cp47-m14-experiments"
+  },
+  {
+    "source_branch": "feat/public-presence-cp32-operator-preflight",
+    "filtered_sha": "c80bb01bcb22813c4dda7da3e855d49b7ce5c82a",
+    "archive_tag": "archive/civora/branch/feat/public-presence-cp32-operator-preflight"
+  },
+  {
+    "source_branch": "feat/public-presence-cp33-rehearsal",
+    "filtered_sha": "7ca8df79633773189aa4371f5eff9ca9aa66b86d",
+    "archive_tag": "archive/civora/branch/feat/public-presence-cp33-rehearsal"
+  },
+  {
+    "source_branch": "feat/public-presence-cp35-research",
+    "filtered_sha": "b88d5263d58bd98aa484225e36fa993877611f6c",
+    "archive_tag": "archive/civora/branch/feat/public-presence-cp35-research"
+  },
+  {
+    "source_branch": "feat/public-presence-cp43-queue",
+    "filtered_sha": "f0d5f5078d8d4ddc45497957608d47a8098dce2b",
+    "archive_tag": "archive/civora/branch/feat/public-presence-cp43-queue"
+  },
+  {
+    "source_branch": "feat/public-presence-cp44-m09-dry-run-publisher",
+    "filtered_sha": "bfbc48a17748651f05480c2b3e848812aff8bceb",
+    "archive_tag": "archive/civora/branch/feat/public-presence-cp44-m09-dry-run-publisher"
+  },
+  {
+    "source_branch": "feat/public-presence-cp45-analytics-20260906",
+    "filtered_sha": "72ff77b169ac8cc8137dc29ad3af1397b707e04d",
+    "archive_tag": "archive/civora/branch/feat/public-presence-cp45-analytics-20260906"
+  },
+  {
+    "source_branch": "feat/public-presence-cp46-learning-20260906",
+    "filtered_sha": "bdbc428b39719da65913661d11c723decd8b38a6",
+    "archive_tag": "archive/civora/branch/feat/public-presence-cp46-learning-20260906"
+  },
+  {
+    "source_branch": "feat/public-presence-cp72-authority-lease-replay-stale-receipt",
+    "filtered_sha": "f6a97fe6b913d45f9e0b83da6f1441ef5a4453cf",
+    "archive_tag": "archive/civora/branch/feat/public-presence-cp72-authority-lease-replay-stale-receipt"
+  },
+  {
+    "source_branch": "feat/public-presence-cp75-recovery-idempotency-rollback",
+    "filtered_sha": "2a5d04be949beb2a3264a908d6fcb7a8119153ea",
+    "archive_tag": "archive/civora/branch/feat/public-presence-cp75-recovery-idempotency-rollback"
+  },
+  {
+    "source_branch": "feat/public-presence-cp76-recovery-crash-consistency",
+    "filtered_sha": "e125d85df05fbac55a7c5ad37651472aa111ad88",
+    "archive_tag": "archive/civora/branch/feat/public-presence-cp76-recovery-crash-consistency"
+  },
+  {
+    "source_branch": "feat/public-presence-meta-live-20261003",
+    "filtered_sha": "8ed3939276cba4aafa959d15783199f460f73061",
+    "archive_tag": "archive/civora/branch/feat/public-presence-meta-live-20261003"
+  },
+  {
+    "source_branch": "feature/public-presence-cp36-scoring",
+    "filtered_sha": "dc66794b051ace5bebdc44754699c56f213f9c60",
+    "archive_tag": "archive/civora/branch/feature/public-presence-cp36-scoring"
+  },
+  {
+    "source_branch": "feature/public-presence-cp38-native-adapt-v1",
+    "filtered_sha": "eade0ddcd9148e186f784d16a3cce9c37547e11c",
+    "archive_tag": "archive/civora/branch/feature/public-presence-cp38-native-adapt-v1"
+  },
+  {
+    "source_branch": "feature/public-presence-cp39-image-rights-v1",
+    "filtered_sha": "84e0dde52103491351bc9a9e40afcfc5b657efe9",
+    "archive_tag": "archive/civora/branch/feature/public-presence-cp39-image-rights-v1"
+  },
+  {
+    "source_branch": "feature/public-presence-cp39-rights-v1",
+    "filtered_sha": "16299e936279cbf7dc65e98b221ae821f01c6cca",
+    "archive_tag": "archive/civora/branch/feature/public-presence-cp39-rights-v1"
+  },
+  {
+    "source_branch": "fix/ppos-shadow-guards-20261005",
+    "filtered_sha": "88e8f36ef35b0b84c40b57f53ba92290657490b0",
+    "archive_tag": "archive/civora/branch/fix/ppos-shadow-guards-20261005"
+  },
+  {
+    "source_branch": "ppos-cp42-approval-dashboard-20260906",
+    "filtered_sha": "672e61767709a5d99e92fa81d82926eef0e21a6f",
+    "archive_tag": "archive/civora/branch/ppos-cp42-approval-dashboard-20260906"
+  },
+  {
+    "source_branch": "ppos-cp49-identity-runtime-activation",
+    "filtered_sha": "a621643c285f5b58cfe4c6f058c8533084a44496",
+    "archive_tag": "archive/civora/branch/ppos-cp49-identity-runtime-activation"
+  },
+  {
+    "source_branch": "ppos-cp50-meta-offline-adapters",
+    "filtered_sha": "812db89b393b292b007f6b26630f60fbeaae3efc",
+    "archive_tag": "archive/civora/branch/ppos-cp50-meta-offline-adapters"
+  },
+  {
+    "source_branch": "ppos-cp55-meta-read-only-gate",
+    "filtered_sha": "b9e89e889fa11fca3c335b2ab7d676a8ec8d645c",
+    "archive_tag": "archive/civora/branch/ppos-cp55-meta-read-only-gate"
+  },
+  {
+    "source_branch": "ppos-cp56-live-readonly-probe-contract",
+    "filtered_sha": "b94770c044675234b647c50613b4f3bab73dc984",
+    "archive_tag": "archive/civora/branch/ppos-cp56-live-readonly-probe-contract"
+  },
+  {
+    "source_branch": "ppos-cp57-offline-evidence-validator-dry-run",
+    "filtered_sha": "9ae17e26f2ac023df099369a2c75ec68568cddd6",
+    "archive_tag": "archive/civora/branch/ppos-cp57-offline-evidence-validator-dry-run"
+  },
+  {
+    "source_branch": "ppos-cp59-final-offline-acceptance",
+    "filtered_sha": "aa831e74b52f9557576f7823e787db30ea88a805",
+    "archive_tag": "archive/civora/branch/ppos-cp59-final-offline-acceptance"
+  },
+  {
+    "source_branch": "ppos-cp60-operator-handoff",
+    "filtered_sha": "fac0eda6ae77caacbd668917c10a98503cd3e805",
+    "archive_tag": "archive/civora/branch/ppos-cp60-operator-handoff"
+  },
+  {
+    "source_branch": "ppos-cp62-authorization-receipt-validator",
+    "filtered_sha": "8eb59f9d3d58574eced883da46a6f41846433787",
+    "archive_tag": "archive/civora/branch/ppos-cp62-authorization-receipt-validator"
+  },
+  {
+    "source_branch": "ppos-cp77-recovery-journal-corruption-rejection",
+    "filtered_sha": "fea6e4f1116489148e6dd394c96a1c8dddea9470",
+    "archive_tag": "archive/civora/branch/ppos-cp77-recovery-journal-corruption-rejection"
+  },
+  {
+    "source_branch": "ppos-fix-graph10-binding-context",
+    "filtered_sha": "df252948753fd20ac734aa78bf7616d03545a8b8",
+    "archive_tag": "archive/civora/branch/ppos-fix-graph10-binding-context"
+  },
+  {
+    "source_branch": "ppos-fix-page-token-identity-fields",
+    "filtered_sha": "e97a83e810089e0446c4ade7acdb2e40a178f4d0",
+    "archive_tag": "archive/civora/branch/ppos-fix-page-token-identity-fields"
+  },
+  {
+    "source_branch": "ppos-graph10-stage-diagnostics",
+    "filtered_sha": "b4100fe56d35853f4cecf112fdc8a9a7d8b5f28e",
+    "archive_tag": "archive/civora/branch/ppos-graph10-stage-diagnostics"
+  },
+  {
+    "source_branch": "ppos-meta-fb-ig-readonly",
+    "filtered_sha": "750a03d42a23113aa97c70cf58401da260dcb115",
+    "archive_tag": "archive/civora/branch/ppos-meta-fb-ig-readonly"
+  },
+  {
+    "source_branch": "ppos-meta-readonly-binding-20261005",
+    "filtered_sha": "d4604bd8b89cdfab93818f9238f0095eb2c1ce2e",
+    "archive_tag": "archive/civora/branch/ppos-meta-readonly-binding-20261005"
+  },
+  {
+    "source_branch": "ppos-page-token-redaction-regression",
+    "filtered_sha": "4be88f896277e8086bf9125ab3bf3841113221e0",
+    "archive_tag": "archive/civora/branch/ppos-page-token-redaction-regression"
+  },
+  {
+    "source_branch": "ppos-sa2-3-duplicate-restart-regression",
+    "filtered_sha": "725d9dcf6134bbd264c1e7890a63b38ef4c1932e",
+    "archive_tag": "archive/civora/branch/ppos-sa2-3-duplicate-restart-regression"
+  },
+  {
+    "source_branch": "ppos-shadow-calibration-gate-20261004",
+    "filtered_sha": "30c5abd9100df0fa6d8ba5d4e93aa89350809d4b",
+    "archive_tag": "archive/civora/branch/ppos-shadow-calibration-gate-20261004"
+  },
+  {
+    "source_branch": "ppos-shadow-calibration-gate-20261005",
+    "filtered_sha": "d4604bd8b89cdfab93818f9238f0095eb2c1ce2e",
+    "archive_tag": "archive/civora/branch/ppos-shadow-calibration-gate-20261005"
+  },
+  {
+    "source_branch": "ppos-shadow-page-token-guard",
+    "filtered_sha": "829b680f56c70fca200c1cdf32d0f7850feb44ea",
+    "archive_tag": "archive/civora/branch/ppos-shadow-page-token-guard"
+  },
+  {
+    "source_branch": "ppos-shadow-preflight-runtime-20261004",
+    "filtered_sha": "786a54d381c60d09dc421758596a513e509c1d30",
+    "archive_tag": "archive/civora/branch/ppos-shadow-preflight-runtime-20261004"
+  },
+  {
+    "source_branch": "ppos/cp39-rights-registry",
+    "filtered_sha": "fd74b08e068b96ccb537f98fe1ce6de84fad10b5",
+    "archive_tag": "archive/civora/branch/ppos/cp39-rights-registry"
+  },
+  {
+    "source_branch": "ppos/cp40-m06-visual-20260906",
+    "filtered_sha": "fe3d270a30df7a1900636ab806f8d68e33b2b26b",
+    "archive_tag": "archive/civora/branch/ppos/cp40-m06-visual-20260906"
+  },
+  {
+    "source_branch": "ppos/cp41-m07-qa-20260906",
+    "filtered_sha": "852316b7b905f7d0d11006704b2538d99a105623",
+    "archive_tag": "archive/civora/branch/ppos/cp41-m07-qa-20260906"
+  },
+  {
+    "source_branch": "ppos/cp48-identity-v2",
+    "filtered_sha": "c9d787e066dd152903dbcc6c0895fea20ff4e5e1",
+    "archive_tag": "archive/civora/branch/ppos/cp48-identity-v2"
+  },
+  {
+    "source_branch": "ppos/cp51-meta-connection-profile-secret-ref",
+    "filtered_sha": "88372b442b944af3937e24a9a0f8d8313f9bb7df",
+    "archive_tag": "archive/civora/branch/ppos/cp51-meta-connection-profile-secret-ref"
+  },
+  {
+    "source_branch": "ppos/cp52-meta-connection-synthetic-preflight",
+    "filtered_sha": "93db0a1104ae75edcb6e57c4426372e41f7aaedd",
+    "archive_tag": "archive/civora/branch/ppos/cp52-meta-connection-synthetic-preflight"
+  },
+  {
+    "source_branch": "ppos/cp53-meta-operator-provisioning-packet",
+    "filtered_sha": "d8ba43f84b26f8cf481075741f4aa35c3674ad43",
+    "archive_tag": "archive/civora/branch/ppos/cp53-meta-operator-provisioning-packet"
+  },
+  {
+    "source_branch": "ppos/cp54-meta-transport-test-twin",
+    "filtered_sha": "623ffcbe4e5df37ae1c163945216438d4829f839",
+    "archive_tag": "archive/civora/branch/ppos/cp54-meta-transport-test-twin"
+  },
+  {
+    "source_branch": "ppos/cp56-live-read-only-probe-runbook",
+    "filtered_sha": "65b001ebeabb6bd6930a79df46a9bd2f91806344",
+    "archive_tag": "archive/civora/branch/ppos/cp56-live-read-only-probe-runbook"
+  },
+  {
+    "source_branch": "ppos/cp58-readiness-aggregator",
+    "filtered_sha": "f625e4658f6633005429ce65d58f3e48ac2872ac",
+    "archive_tag": "archive/civora/branch/ppos/cp58-readiness-aggregator"
+  },
+  {
+    "source_branch": "ppos/cp61-control-authorization-intake",
+    "filtered_sha": "cada99e19f24d3cb7aa9b85c563d75075eca3d35",
+    "archive_tag": "archive/civora/branch/ppos/cp61-control-authorization-intake"
+  },
+  {
+    "source_branch": "ppos/cp63-zero-write-recorder",
+    "filtered_sha": "9bf23f930d0f6f70a9063444d41b1a9a3ac58ae4",
+    "archive_tag": "archive/civora/branch/ppos/cp63-zero-write-recorder"
+  },
+  {
+    "source_branch": "ppos/cp68-session-authorization-receipt",
+    "filtered_sha": "2cf9192b200b5c86c6a6e03f56f7456a94919b73",
+    "archive_tag": "archive/civora/branch/ppos/cp68-session-authorization-receipt"
+  },
+  {
+    "source_branch": "ppos/cp79-atomic-visibility-20260908",
+    "filtered_sha": "5250327f95248614d2ee39ed17c9f266acb77ae2",
+    "archive_tag": "archive/civora/branch/ppos/cp79-atomic-visibility-20260908"
+  },
+  {
+    "source_branch": "ppos/cp80-atomic-replace-crash-window-20260913",
+    "filtered_sha": "d1f999a91e63e58bc99730cb5c8e86026a140f88",
+    "archive_tag": "archive/civora/branch/ppos/cp80-atomic-replace-crash-window-20260913"
+  },
+  {
+    "source_branch": "ppos/cp81-atomic-replace-retry-idempotency-20260913",
+    "filtered_sha": "712cdf8a71d0f499370116feb5b43843dbf7311c",
+    "archive_tag": "archive/civora/branch/ppos/cp81-atomic-replace-retry-idempotency-20260913"
+  },
+  {
+    "source_branch": "ppos/cp82-retry-exhaustion-fail-closed-20260913",
+    "filtered_sha": "f2be3cc15551d95e3b1bc40c7c196ecea79a5d7e",
+    "archive_tag": "archive/civora/branch/ppos/cp82-retry-exhaustion-fail-closed-20260913"
+  },
+  {
+    "source_branch": "ppos/cp83-growth-capability-matrix-20260914",
+    "filtered_sha": "c18c4b5bd2f4ce1a19f8c456f99caf539bcc2aa6",
+    "archive_tag": "archive/civora/branch/ppos/cp83-growth-capability-matrix-20260914"
+  },
+  {
+    "source_branch": "ppos/cp84-closure-20260914",
+    "filtered_sha": "a269f35d2dd902fa23e66022c1b29c28f06cae83",
+    "archive_tag": "archive/civora/branch/ppos/cp84-closure-20260914"
+  },
+  {
+    "source_branch": "ppos/cp84-engagement-radar-20260914",
+    "filtered_sha": "4518086c2b13080d7eb90154887e07db18e43f4a",
+    "archive_tag": "archive/civora/branch/ppos/cp84-engagement-radar-20260914"
+  },
+  {
+    "source_branch": "ppos/cp85-closure-20260916",
+    "filtered_sha": "96a825a57a78d4e9731d61efa33328d92c719808",
+    "archive_tag": "archive/civora/branch/ppos/cp85-closure-20260916"
+  },
+  {
+    "source_branch": "ppos/cp85-inbound-reply-engine-20260915",
+    "filtered_sha": "e9506d10933539ade92e945438a6d15044f0ba40",
+    "archive_tag": "archive/civora/branch/ppos/cp85-inbound-reply-engine-20260915"
+  },
+  {
+    "source_branch": "ppos/cp86-closure-marker-20260916",
+    "filtered_sha": "c0a7d1a3cbcb5689c946238db7c693d64f86dc3f",
+    "archive_tag": "archive/civora/branch/ppos/cp86-closure-marker-20260916"
+  },
+  {
+    "source_branch": "ppos/cp86-outbound-value-add-engagement-20260916",
+    "filtered_sha": "625d9b1456c99775181dbf473953edd5fcabcc63",
+    "archive_tag": "archive/civora/branch/ppos/cp86-outbound-value-add-engagement-20260916"
+  },
+  {
+    "source_branch": "ppos/cp87-closure-marker-20260917",
+    "filtered_sha": "3ba235b9bd49e49e5d483c8b89948e45a4ef1d6f",
+    "archive_tag": "archive/civora/branch/ppos/cp87-closure-marker-20260917"
+  },
+  {
+    "source_branch": "ppos/cp87-relationship-graph-20260917",
+    "filtered_sha": "eda23da0294789b99cd20a78e795a8db6c7d3ae7",
+    "archive_tag": "archive/civora/branch/ppos/cp87-relationship-graph-20260917"
+  },
+  {
+    "source_branch": "ppos/cp88-amplification-engine-20260917",
+    "filtered_sha": "e1ce28836f33c55bffc10753188f91de864e506f",
+    "archive_tag": "archive/civora/branch/ppos/cp88-amplification-engine-20260917"
+  },
+  {
+    "source_branch": "ppos/cp88-closure-marker-20260918",
+    "filtered_sha": "a44b677bf549ef41d6910af4b44f08ff43a09a91",
+    "archive_tag": "archive/civora/branch/ppos/cp88-closure-marker-20260918"
+  },
+  {
+    "source_branch": "ppos/cp89-closure-normalization-20260918",
+    "filtered_sha": "a78af64fcdb20be95f42538f73e7b1c0a1f2efd2",
+    "archive_tag": "archive/civora/branch/ppos/cp89-closure-normalization-20260918"
+  },
+  {
+    "source_branch": "ppos/cp89-growth-analytics-virality-learning-20260918",
+    "filtered_sha": "03e805975186554abae60c2526c652c9c3f3778a",
+    "archive_tag": "archive/civora/branch/ppos/cp89-growth-analytics-virality-learning-20260918"
+  },
+  {
+    "source_branch": "ppos/cp90-closure-normalization-20260919",
+    "filtered_sha": "c1a3c6e7f9a893865b6804d727c4039b60d070ba",
+    "archive_tag": "archive/civora/branch/ppos/cp90-closure-normalization-20260919"
+  },
+  {
+    "source_branch": "ppos/cp90-engagement-scheduler-rate-quality-budget-20260919",
+    "filtered_sha": "3a1e228de6b73d6f6e1e28e8c93a63a3f4c41e64",
+    "archive_tag": "archive/civora/branch/ppos/cp90-engagement-scheduler-rate-quality-budget-20260919"
+  },
+  {
+    "source_branch": "ppos/cp91-closure-normalization-20260920",
+    "filtered_sha": "b17a60efe5265db357aff2fdae4fa1f14f0252ac",
+    "archive_tag": "archive/civora/branch/ppos/cp91-closure-normalization-20260920"
+  },
+  {
+    "source_branch": "ppos/cp91-growth-dry-run-acceptance-20260920",
+    "filtered_sha": "e36c3ef7546c53d3f31f7a5e531fbe411a0f57f8",
+    "archive_tag": "archive/civora/branch/ppos/cp91-growth-dry-run-acceptance-20260920"
+  },
+  {
+    "source_branch": "ppos/cp92-closure-normalization-20260920",
+    "filtered_sha": "3709d7251cb35fa2eae39ec731322d55aea8a484",
+    "archive_tag": "archive/civora/branch/ppos/cp92-closure-normalization-20260920"
+  },
+  {
+    "source_branch": "ppos/cp92-shadow-pilot-plan-20260920",
+    "filtered_sha": "6d6419a4ba36ebe0db6a2d50635d03212a0cd097",
+    "archive_tag": "archive/civora/branch/ppos/cp92-shadow-pilot-plan-20260920"
+  },
+  {
+    "source_branch": "ppos/read-only-cursor-idempotency-20261006",
+    "filtered_sha": "725d9dcf6134bbd264c1e7890a63b38ef4c1932e",
+    "archive_tag": "archive/civora/branch/ppos/read-only-cursor-idempotency-20261006"
+  },
+  {
+    "source_branch": "public-presence-cp31-source-ingest",
+    "filtered_sha": "7eb38f429407dedc9bf72bd9ecff68819045ef3b",
+    "archive_tag": "archive/civora/branch/public-presence-cp31-source-ingest"
+  },
+  {
+    "source_branch": "public-presence-cp69-precondition-matrix",
+    "filtered_sha": "8351903c918da6c936db0f2d225331e7a1a79313",
+    "archive_tag": "archive/civora/branch/public-presence-cp69-precondition-matrix"
+  },
+  {
+    "source_branch": "public-presence-cp70-activation-transaction-dry-run",
+    "filtered_sha": "30e22f25c629c42e40a9d751818998711e29a905",
+    "archive_tag": "archive/civora/branch/public-presence-cp70-activation-transaction-dry-run"
+  },
+  {
+    "source_branch": "public-presence-cp71-authority-lease-expiry-revocation-dry-run",
+    "filtered_sha": "93de9a51aad170b20e430ce7fa975d83392cd505",
+    "archive_tag": "archive/civora/branch/public-presence-cp71-authority-lease-expiry-revocation-dry-run"
+  },
+  {
+    "source_branch": "public-presence-os-cp37-master-draft",
+    "filtered_sha": "5de6a69a0b61e781b0486ec613bea35a0f141a69",
+    "archive_tag": "archive/civora/branch/public-presence-os-cp37-master-draft"
+  },
+  {
+    "source_branch": "public-presence-os/cp30-productization",
+    "filtered_sha": "bed294eb38abf2c0d89e29da67a4c9ae06f4d7ea",
+    "archive_tag": "archive/civora/branch/public-presence-os/cp30-productization"
+  },
+  {
+    "source_branch": "public-presence-os/cp78-recovery-journal-partial-write-truncation",
+    "filtered_sha": "219cab8d4406756d1cd057f2d4ab23bf9e693990",
+    "archive_tag": "archive/civora/branch/public-presence-os/cp78-recovery-journal-partial-write-truncation"
+  },
+  {
+    "source_branch": "public-presence/cp34-radar-minimal",
+    "filtered_sha": "9c34389b2a04629a5d151aa7afd1404cb197a4b7",
+    "archive_tag": "archive/civora/branch/public-presence/cp34-radar-minimal"
+  },
+  {
+    "source_branch": "public-presence/sa1-meta-access-closure-20260930",
+    "filtered_sha": "3a82fe1c21752dc060701771505a1dc017b36ee8",
+    "archive_tag": "archive/civora/branch/public-presence/sa1-meta-access-closure-20260930"
+  },
+  {
+    "source_branch": "public-presence/sa2-1-readonly-runtime-contract-20260930",
+    "filtered_sha": "d5acee66bb887306212b1c2b61502822cef7dcb2",
+    "archive_tag": "archive/civora/branch/public-presence/sa2-1-readonly-runtime-contract-20260930"
+  },
+  {
+    "source_branch": "public-presence/sa2-2-normalized-readonly-transport-20260930",
+    "filtered_sha": "82ab13d7dacf8b82b3bc556ecd37538cdc332cb3",
+    "archive_tag": "archive/civora/branch/public-presence/sa2-2-normalized-readonly-transport-20260930"
+  },
+  {
+    "source_branch": "public-presence/sa2-3-contract-spec-20260930",
+    "filtered_sha": "74d678c611b9f4f196b9524558130f1ad8985a5d",
+    "archive_tag": "archive/civora/branch/public-presence/sa2-3-contract-spec-20260930"
+  },
+  {
+    "source_branch": "public-presence/sa2-3-read-cursor-eventlog-20260930",
+    "filtered_sha": "4e6f4928042b45b700d9c9267088df7fe4b46478",
+    "archive_tag": "archive/civora/branch/public-presence/sa2-3-read-cursor-eventlog-20260930"
+  },
+  {
+    "source_branch": "public-presence/sa2-4-read-observability-20260930",
+    "filtered_sha": "078145434f9b76326f79d7ea2ed150b72b5872c7",
+    "archive_tag": "archive/civora/branch/public-presence/sa2-4-read-observability-20260930"
+  },
+  {
+    "source_branch": "public-presence/sa2-5-cross-lane-coverage-20260930",
+    "filtered_sha": "0b88632794db084e10c10351157430bafd01f623",
+    "archive_tag": "archive/civora/branch/public-presence/sa2-5-cross-lane-coverage-20260930"
+  },
+  {
+    "source_branch": "public-presence/sa2-6-snapshot-persistence-20260930",
+    "filtered_sha": "cfb45900d0549edbf44c8346dc2010f1a838b68c",
+    "archive_tag": "archive/civora/branch/public-presence/sa2-6-snapshot-persistence-20260930"
+  },
+  {
+    "source_branch": "public-presence/sa2-7-generation-ordering-20261001",
+    "filtered_sha": "4d0ff4d1fd1e2ef8d7c40371bc10dc5877ccb7b4",
+    "archive_tag": "archive/civora/branch/public-presence/sa2-7-generation-ordering-20261001"
+  }
+]

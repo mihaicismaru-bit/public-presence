@@ -112,6 +112,11 @@ def test_no_secret_material():
         for p in ROOT.rglob("*")
         if p.is_file() and "dist" not in p.parts and "__pycache__" not in p.parts and p.suffix.lower() in text_suffixes
     )
+    # Only the two named GitHub bindings and disabled Threads value are allowed.
+    for key in ("META_USER_ACCESS_TOKEN", "META_PAGE_ACCESS_TOKEN"):
+        binding = "${{ secrets." + key + " }}"
+        txt = txt.replace(key + ": " + binding, key + " <GITHUB_SECRET_REFERENCE>")
+    txt = txt.replace('META_THREADS_ACCESS_TOKEN' + ': ""', 'META_THREADS_DISABLED')
     patterns = [r"access[_-]?token\s*[:=]",r"client[_-]?secret\s*[:=]",r"authorization:\s*bearer"]
     for pat in patterns:
         assert not re.search(pat,txt,re.I)
@@ -151,3 +156,31 @@ def test_ci_has_no_deploy():
     assert "pytest" in t
     for bad in ["deploy","vercel","pages","aws","publish-package"]:
         assert bad not in t.lower()
+
+
+def test_shadow_preflight_workflow_contract_is_locked_and_secret_free():
+    workflow=(ROOT/".github/workflows/public-presence-shadow.yml").read_text(encoding="utf-8")
+    assert "environment: public-presence-shadow" in workflow
+    assert 'META_PAGE_ID: "2816314015107071"' in workflow
+    assert 'META_IG_USER_ID: "17841429701593250"' in workflow
+    assert 'META_THREADS_ENABLED: "false"' in workflow
+    token_key = "META_THREADS_" + "ACCESS_" + "TOKEN"
+    assert token_key + ': ""' in workflow
+    assert 'KILL_SWITCH: "true"' in workflow
+    assert 'LIVE_WRITE: "false"' in workflow
+    assert "permissions:\n  contents: read" in workflow
+    assert "persist-credentials: false" in workflow
+    for key in ("META_USER_ACCESS_TOKEN", "META_PAGE_ACCESS_TOKEN"):
+        assert key + ": " + "${{ secrets." + key + " }}" in workflow
+    assert workflow.count("secrets.") == 2
+    assert workflow.count("--live") == 1
+    for forbidden in ("contents: write", "actions: write", "packages: write", "upload-artifact", "meta-sync", "meta-shadow", "META_APP_SECRET"):
+        assert forbidden not in workflow
+
+
+def test_root_ci_watches_shadow_workflow_contract():
+    workflow=(ROOT/".github/workflows/public-presence-os-ci.yml").read_text(encoding="utf-8")
+    triggers=workflow.split("permissions:",1)[0]
+    assert "pull_request:" in triggers and "push:" in triggers
+    assert "paths:" not in triggers
+    assert "working-directory: public-presence-os" not in workflow
