@@ -8,6 +8,7 @@ import re
 from typing import Any
 
 from .control import EXPECTED_ACTIVE, canonical_json, load_json, validate_policy
+from .deterministic_compile_cache import memoize_root_policy_compile
 from .live_read_only_probe_authorized_session_request import (
     FUTURE_RECEIPT_SCHEMA,
     REQUESTED_SCOPE,
@@ -440,6 +441,7 @@ def evaluate_from_root(root: Path, policy: dict[str, Any], *, evaluated_at_utc: 
     )
 
 
+@memoize_root_policy_compile
 def compile_live_read_only_probe_authority_activation_precondition_matrix(root: Path, policy: dict[str, Any]) -> LiveReadOnlyProbeAuthorityActivationPreconditionContract:
     root = root.resolve()
     _validate_policy(policy)

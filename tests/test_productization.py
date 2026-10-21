@@ -1,6 +1,7 @@
 from __future__ import annotations
 from pathlib import Path
 import json, re, subprocess, sys, os
+import pytest
 from public_presence_os.control import *
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -184,3 +185,66 @@ def test_root_ci_watches_shadow_workflow_contract():
     assert "pull_request:" in triggers and "push:" in triggers
     assert "paths:" not in triggers
     assert "working-directory: public-presence-os" not in workflow
+
+
+def test_read_only_real_workflow_is_manual_locked_and_persists_only_report():
+    workflow=(ROOT/".github/workflows/public-presence-read-only-real.yml").read_text(encoding="utf-8")
+    triggers=workflow.split("permissions:",1)[0]
+    assert "workflow_dispatch:" in triggers
+    assert "material_change_reference:" in triggers
+    assert "push:" not in triggers and "schedule:" not in triggers
+    assert "environment: public-presence-shadow" in workflow
+    assert 'META_PAGE_ID: "2816314015107071"' in workflow
+    assert 'META_IG_USER_ID: "17841429701593250"' in workflow
+    assert 'META_THREADS_ENABLED: "false"' in workflow
+    assert 'META_THREADS_ACCESS_TOKEN: ""' in workflow
+    assert 'KILL_SWITCH: "true"' in workflow
+    assert 'LIVE_WRITE: "false"' in workflow
+    assert "permissions:\n  contents: read" in workflow
+    assert "persist-credentials: false" in workflow
+    assert workflow.count("secrets.") == 2
+    assert "meta-preflight" in workflow and "--live" in workflow
+    assert "meta-sync" in workflow
+    assert workflow.count("public_presence_os.cli meta-shadow") == 2
+    assert "public_presence_os.meta_read_only_report" in workflow
+    assert "actions/upload-artifact@v4" in workflow
+    assert "read-only-real-report.json" in workflow
+    for forbidden in ("contents: write", "actions: write", "packages: write", "META_APP_SECRET"):
+        assert forbidden not in workflow
+
+
+def test_deterministic_compile_cache_reuses_only_exact_policy(tmp_path):
+    from public_presence_os.deterministic_compile_cache import memoize_root_policy_compile
+
+    calls = []
+
+    @memoize_root_policy_compile
+    def compile_fixture(root, policy):
+        calls.append((root.resolve(), dict(policy)))
+        return object()
+
+    first = compile_fixture(tmp_path, {"guard": True})
+    second = compile_fixture(tmp_path, {"guard": True})
+    changed = compile_fixture(tmp_path, {"guard": False})
+
+    assert first is second
+    assert changed is not first
+    assert len(calls) == 2
+
+
+def test_deterministic_compile_cache_does_not_cache_failures(tmp_path):
+    from public_presence_os.deterministic_compile_cache import memoize_root_policy_compile
+
+    calls = 0
+
+    @memoize_root_policy_compile
+    def compile_fixture(root, policy):
+        nonlocal calls
+        calls += 1
+        raise ValueError("fail closed")
+
+    for _ in range(2):
+        with pytest.raises(ValueError, match="fail closed"):
+            compile_fixture(tmp_path, {"guard": True})
+
+    assert calls == 2

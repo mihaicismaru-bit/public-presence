@@ -7,6 +7,7 @@ import re
 from typing import Any
 
 from .control import EXPECTED_ACTIVE, canonical_json, load_json, validate_policy
+from .deterministic_compile_cache import memoize_root_policy_compile
 from .live_read_only_probe_authorized_session_request import (
     CHECKPOINT as CP67_CHECKPOINT, DECISION_VALUES, FUTURE_RECEIPT_SCHEMA,
     REQUESTED_SCOPE, REQUIRED_HANDOFF_FIELDS, build_authorized_session_request_packet,
@@ -272,6 +273,7 @@ def _synthetic(packet,handoff):
       "valid_until_utc":"2030-01-01T01:00:00Z","human_reference_sha256":sha256(b"cp68-human").hexdigest(),
       "evidence_sha256":sha256(b"cp68-evidence").hexdigest(),"nonce":"cp68-synthetic-nonce-0001"}
 
+@memoize_root_policy_compile
 def compile_live_read_only_probe_session_authorization_receipt(root:Path,policy:dict):
     root=root.resolve(); _validate_policy(policy); _validate_root(root)
     cp67p=root/"config/live_read_only_probe_authorized_session_request_policy.json"

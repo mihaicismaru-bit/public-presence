@@ -7,6 +7,7 @@ from typing import Any
 
 from .authorization_receipt_validator import compile_authorization_receipt_validator
 from .control import EXPECTED_ACTIVE, canonical_json, load_json, validate_policy
+from .deterministic_compile_cache import memoize_root_policy_compile
 from .live_read_only_probe_session import (
     LiveReadOnlyProbeSessionContract,
     ProbeSessionEnvelope,
@@ -624,6 +625,7 @@ def validate_replay_validation_receipt(receipt: ReplayValidationReceipt) -> None
         raise LiveReadOnlyProbeEvidenceImportHold("HOLD_CP64_REPLAY_RECEIPT_HASH_BINDING_INVALID")
 
 
+@memoize_root_policy_compile
 def compile_live_read_only_probe_evidence_import(
     root: Path,
     policy: dict,

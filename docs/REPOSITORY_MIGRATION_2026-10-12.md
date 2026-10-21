@@ -29,7 +29,7 @@ Create the `public-presence-shadow` environment in the new repository, restricte
 
 The environment and secrets are not transferred by Git. No secret value was read or copied. The workflow needs no repository variables: app/Page/IG IDs and API-version pins remain explicit non-secret contract values. `.env.example` contains placeholders only. `META_APP_SECRET` is optional local provisioning metadata and is not bound in Actions. Do not provision a Threads credential during this migration.
 
-Mandatory posture: `KILL_SWITCH=true`, `LIVE_WRITE=false`, `META_THREADS_ENABLED=false`, empty Threads credential. No scheduled or push-triggered Meta reads; no social writes. A future manual preflight needs a real confirmed material configuration-change reference. Offline CI success does not prove live credentials or Meta entitlements work.
+Mandatory posture: `KILL_SWITCH=true`, `LIVE_WRITE=false`, `META_THREADS_ENABLED=false`, empty Threads credential. No scheduled or push-triggered Meta reads; no social writes. Both manual workflows require a real confirmed material configuration-change reference. The preflight workflow proves the bounded identities; the separate READ ONLY REAL workflow then performs GET-only sync and shadow materialization and persists only a secret-free summary report. Offline CI success does not prove live credentials or Meta entitlements work.
 
 ## Cleanup and rollback
 

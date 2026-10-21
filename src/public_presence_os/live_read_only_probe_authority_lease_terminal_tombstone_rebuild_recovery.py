@@ -7,6 +7,7 @@ import re
 from typing import Any
 
 from .control import EXPECTED_ACTIVE, canonical_json, load_json, validate_policy
+from .deterministic_compile_cache import memoize_root_policy_compile
 from .live_read_only_probe_authority_lease_expiry_revocation import (
     compile_live_read_only_probe_authority_lease_expiry_revocation,
 )
@@ -425,6 +426,7 @@ def _build_cp73_dry_run(root: Path, cp73_contract: Any) -> Any:
     return cp73_dry
 
 
+@memoize_root_policy_compile
 def compile_live_read_only_probe_authority_lease_terminal_tombstone_rebuild_recovery(
     root: Path,
     policy: dict[str, Any],

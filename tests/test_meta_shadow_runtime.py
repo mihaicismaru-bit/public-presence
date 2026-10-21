@@ -1,6 +1,9 @@
 from __future__ import annotations
 
+import json
+
 from public_presence_os.meta_live_runtime import MetaEventStore
+from public_presence_os.meta_read_only_report import build_read_only_report
 from public_presence_os.meta_shadow_runtime import (
     EVALUATION_FIELDS,
     MetaShadowStore,
@@ -103,3 +106,57 @@ def test_calibration_band_is_pending_green_amber_then_red(tmp_path):
     assert red["calibration_band"] == "RED"
     assert red["live_authority"] == "NONE"
     assert red["external_write_count"] == 0
+
+
+def test_secret_free_read_only_report_binds_event_log_and_shadow_replay(tmp_path):
+    events = MetaEventStore(tmp_path / "events.sqlite3")
+    seed(events, "COMMENT", "comment-1", "Where is the source?")
+    seed(events, "COMMENT", "comment-2", "Nice")
+    events.start_sync("run-1", started_at="2026-10-21T10:00:00Z")
+    events.finish_sync(
+        "run-1",
+        completed_at="2026-10-21T10:00:01Z",
+        state="READ_ONLY_REAL_SYNC_PASS",
+        accepted_count=2,
+        duplicate_count=0,
+    )
+    events.start_sync("run-2", started_at="2026-10-21T10:01:00Z")
+    events.finish_sync(
+        "run-2",
+        completed_at="2026-10-21T10:01:01Z",
+        state="READ_ONLY_REAL_SYNC_PASS",
+        accepted_count=0,
+        duplicate_count=2,
+    )
+    shadow = MetaShadowStore(tmp_path / "shadow.sqlite3")
+    first = run_shadow(events, shadow)
+    replay = run_shadow(events, shadow)
+
+    report = build_read_only_report(
+        events_db=events.path,
+        shadow_db=shadow.path,
+        sync_replay={
+            "state": "READ_ONLY_REAL_SYNC_PASS",
+            "identities": {
+                "FACEBOOK_PAGE": "2816314015107071",
+                "INSTAGRAM_PROFESSIONAL": "17841429701593250",
+            },
+            "accepted": 0,
+            "duplicates": 2,
+            "holds": [],
+            "write_count": 0,
+        },
+        shadow_first=first,
+        shadow_replay=replay,
+        source_sha="a" * 40,
+        material_change_reference="owner-confirmed-rotation-2026-10-21",
+    )
+
+    assert report["event_log"]["health"] == "PASS"
+    assert report["event_log"]["event_count"] == 2
+    assert report["event_log"]["duplicate_observations"] == 2
+    assert report["shadow"]["idempotency"] == "PASS"
+    assert report["shadow"]["replay_duplicates"] == 2
+    assert report["safety"]["social_write_count"] == 0
+    assert report["safety"]["threads"] == "HOLD_EXTERNAL"
+    assert "owner-confirmed" not in json.dumps(report)

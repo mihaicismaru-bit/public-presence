@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from .control import EXPECTED_ACTIVE, canonical_json, load_json, validate_policy
+from .deterministic_compile_cache import memoize_root_policy_compile
 from .live_read_only_probe_evidence_import import (
     CHECKPOINT as CP64_CHECKPOINT,
     STATE as CP64_STATE,
@@ -648,6 +649,7 @@ def validate_execution_admission_receipt(
         raise LiveReadOnlyProbeExecutionAdmissionHold("HOLD_CP65_ADMISSION_HASH_BINDING_INVALID")
 
 
+@memoize_root_policy_compile
 def compile_live_read_only_probe_execution_admission(
     root: Path,
     policy: dict,

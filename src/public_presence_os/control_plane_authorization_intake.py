@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from .control import EXPECTED_ACTIVE, canonical_json, load_json, validate_policy
+from .deterministic_compile_cache import memoize_root_policy_compile
 from .operator_pilot_handoff import (
     STATE as CP60_STATE,
     compile_operator_pilot_handoff,
@@ -365,6 +366,7 @@ def _contract_body(
     }
 
 
+@memoize_root_policy_compile
 def compile_control_plane_authorization_intake(
     root: Path,
     policy: dict,

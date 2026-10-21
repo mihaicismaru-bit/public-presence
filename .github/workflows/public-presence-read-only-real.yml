@@ -1,0 +1,105 @@
+name: PUBLIC PRESENCE READ ONLY REAL
+
+on:
+  workflow_dispatch:
+    inputs:
+      material_change_reference:
+        description: 'Non-secret reference to the confirmed credential/config change; never enter a token'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: public-presence-read-only-real
+  cancel-in-progress: false
+
+jobs:
+  read-only-real:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment: public-presence-shadow
+    env:
+      META_APP_ID: "1488219383133581"
+      META_USER_ACCESS_TOKEN: ${{ secrets.META_USER_ACCESS_TOKEN }}
+      META_PAGE_ACCESS_TOKEN: ${{ secrets.META_PAGE_ACCESS_TOKEN }}
+      META_PAGE_ID: "2816314015107071"
+      META_IG_USER_ID: "17841429701593250"
+      META_THREADS_USER_ID: "28391623420464631"
+      META_THREADS_ENABLED: "false"
+      META_THREADS_ACCESS_TOKEN: ""
+      META_GRAPH_API_VERSION: "v26.0"
+      META_THREADS_API_VERSION: "v1.0"
+      KILL_SWITCH: "true"
+      LIVE_WRITE: "false"
+    steps:
+      - name: Checkout exact source without persisted credentials
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install local package
+        run: python -m pip install -e .
+      - name: Verify immutable read-only contract
+        env:
+          MATERIAL_CHANGE_REFERENCE: ${{ inputs.material_change_reference }}
+        run: |
+          python - <<'PY'
+          import os
+
+          expected = {
+              "META_PAGE_ID": "2816314015107071",
+              "META_IG_USER_ID": "17841429701593250",
+              "META_THREADS_ENABLED": "false",
+              "META_THREADS_ACCESS_TOKEN": "",
+              "KILL_SWITCH": "true",
+              "LIVE_WRITE": "false",
+          }
+          if not os.environ.get("MATERIAL_CHANGE_REFERENCE", "").strip():
+              raise SystemExit("PPOS_READ_ONLY_REAL_MATERIAL_CHANGE_REFERENCE_REQUIRED")
+          mismatches = [key for key, value in expected.items() if os.environ.get(key) != value]
+          if mismatches:
+              raise SystemExit("PPOS_READ_ONLY_REAL_CONTRACT_MISMATCH:" + ",".join(sorted(mismatches)))
+          if not os.environ.get("META_PAGE_ACCESS_TOKEN") or not os.environ.get("META_USER_ACCESS_TOKEN"):
+              raise SystemExit("PPOS_READ_ONLY_REAL_REQUIRED_CREDENTIAL_BINDING_MISSING")
+          print("PPOS_READ_ONLY_REAL_CONTRACT_PASS")
+          PY
+      - name: Bounded live preflight and initial read
+        env:
+          PYTHONPATH: src
+        run: python -m public_presence_os.cli meta-preflight --db "$RUNNER_TEMP/meta-events.sqlite3" --live
+      - name: Read-only replay and event-log dedup
+        env:
+          PYTHONPATH: src
+        run: python -m public_presence_os.cli meta-sync --db "$RUNNER_TEMP/meta-events.sqlite3" > "$RUNNER_TEMP/sync-replay.json"
+      - name: Materialize shadow decisions twice
+        env:
+          PYTHONPATH: src
+        run: |
+          python -m public_presence_os.cli meta-shadow --events-db "$RUNNER_TEMP/meta-events.sqlite3" --shadow-db "$RUNNER_TEMP/meta-shadow.sqlite3" > "$RUNNER_TEMP/shadow-first.json"
+          python -m public_presence_os.cli meta-shadow --events-db "$RUNNER_TEMP/meta-events.sqlite3" --shadow-db "$RUNNER_TEMP/meta-shadow.sqlite3" > "$RUNNER_TEMP/shadow-replay.json"
+      - name: Build and verify secret-free report
+        env:
+          PYTHONPATH: src
+          MATERIAL_CHANGE_REFERENCE: ${{ inputs.material_change_reference }}
+        run: |
+          python -m public_presence_os.meta_read_only_report \
+            --events-db "$RUNNER_TEMP/meta-events.sqlite3" \
+            --shadow-db "$RUNNER_TEMP/meta-shadow.sqlite3" \
+            --sync-replay "$RUNNER_TEMP/sync-replay.json" \
+            --shadow-first "$RUNNER_TEMP/shadow-first.json" \
+            --shadow-replay "$RUNNER_TEMP/shadow-replay.json" \
+            --source-sha "$GITHUB_SHA" \
+            --material-change-reference "$MATERIAL_CHANGE_REFERENCE" \
+            --output "$RUNNER_TEMP/read-only-real-report.json"
+          cat "$RUNNER_TEMP/read-only-real-report.json" >> "$GITHUB_STEP_SUMMARY"
+      - name: Persist secret-free read-only evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: public-presence-read-only-real-report-${{ github.run_id }}
+          path: ${{ runner.temp }}/read-only-real-report.json
+          if-no-files-found: error
+          retention-days: 30

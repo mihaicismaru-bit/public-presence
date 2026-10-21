@@ -7,6 +7,7 @@ import re
 from typing import Any
 
 from .control import EXPECTED_ACTIVE, canonical_json, load_json, validate_policy
+from .deterministic_compile_cache import memoize_root_policy_compile
 from .live_read_only_probe_authority_lease_expiry_revocation import (
     compile_live_read_only_probe_authority_lease_expiry_revocation,
 )
@@ -362,6 +363,7 @@ def validate_authority_lease_terminal_tombstone_reconciliation_dry_run(dry: Auth
         raise LiveReadOnlyProbeAuthorityLeaseTerminalTombstoneReconciliationHold("HOLD_CP73_DRY_RUN_HASH")
 
 
+@memoize_root_policy_compile
 def compile_live_read_only_probe_authority_lease_terminal_tombstone_reconciliation(root: Path, policy: dict[str, Any]) -> LiveReadOnlyProbeAuthorityLeaseTerminalTombstoneReconciliationContract:
     root = root.resolve(); _validate_policy(policy); _validate_root(root)
     cp72_policy = load_json(root / "config" / "live_read_only_probe_authority_lease_replay_stale_receipt_policy.json")

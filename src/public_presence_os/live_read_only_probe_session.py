@@ -11,6 +11,7 @@ from .authorization_receipt_validator import (
     validate_authorization_receipt_validator_contract,
 )
 from .control import EXPECTED_ACTIVE, canonical_json, load_json, validate_policy
+from .deterministic_compile_cache import memoize_root_policy_compile
 
 MODEL_VERSION = "PPOS_LIVE_READ_ONLY_PROBE_SESSION_V1"
 ENGINE_VERSION = "ppos-live-read-only-probe-session-v1.0.0"
@@ -594,6 +595,7 @@ def validate_zero_write_recorder(
         raise LiveReadOnlyProbeSessionHold("HOLD_CP63_RECORDER_HASH_BINDING_INVALID")
 
 
+@memoize_root_policy_compile
 def compile_live_read_only_probe_session(
     root: Path,
     policy: dict,

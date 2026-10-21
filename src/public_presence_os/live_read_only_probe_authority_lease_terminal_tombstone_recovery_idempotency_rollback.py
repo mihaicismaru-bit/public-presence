@@ -7,6 +7,7 @@ import re
 from typing import Any
 
 from .control import EXPECTED_ACTIVE, canonical_json, load_json, validate_policy
+from .deterministic_compile_cache import memoize_root_policy_compile
 from .live_read_only_probe_authority_lease_terminal_tombstone_rebuild_recovery import (
     CHECKPOINT as CP74_CHECKPOINT,
     STATE as CP74_STATE,
@@ -422,6 +423,7 @@ def _build_cp74_dry_run(root: Path, cp74_contract: Any) -> Any:
     return cp74_dry
 
 
+@memoize_root_policy_compile
 def compile_live_read_only_probe_authority_lease_terminal_tombstone_recovery_idempotency_rollback(
     root: Path,
     policy: dict[str, Any],

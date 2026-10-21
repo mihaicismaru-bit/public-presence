@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from .control import EXPECTED_ACTIVE, canonical_json, load_json, validate_policy
+from .deterministic_compile_cache import memoize_root_policy_compile
 from .live_read_only_probe_execution_admission import AUTHORIZATION_GATE
 from .live_read_only_probe_single_session_harness import (
     CHECKPOINT as CP66_CHECKPOINT,
@@ -640,6 +641,7 @@ def validate_operator_authorization_handoff(
         raise LiveReadOnlyProbeAuthorizedSessionRequestHold("HOLD_CP67_HANDOFF_HASH_BINDING_INVALID")
 
 
+@memoize_root_policy_compile
 def compile_live_read_only_probe_authorized_session_request(
     root: Path,
     policy: dict,

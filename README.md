@@ -33,6 +33,13 @@ Read-only sync and shadow decision materialization:
 
 `PYTHONPATH=src python -m public_presence_os.cli meta-shadow --events-db var/meta-events.sqlite3 --shadow-db var/meta-shadow.sqlite3`
 
+GitHub provides two manual-only workflows bound to the `public-presence-shadow`
+environment. `PUBLIC PRESENCE SHADOW PREFLIGHT` performs the bounded identity
+probe. After that gate passes, `PUBLIC PRESENCE READ ONLY REAL` performs a
+read-only replay, materializes shadow decisions twice to prove idempotency, and
+uploads only a secret-free summary report. Both workflows keep
+`KILL_SWITCH=true`, `LIVE_WRITE=false`, and `META_THREADS_ENABLED=false`.
+
 ## Reproducible package
 `PYTHONPATH=src python scripts/build_release.py`
 
