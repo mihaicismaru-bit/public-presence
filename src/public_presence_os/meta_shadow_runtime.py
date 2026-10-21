@@ -176,6 +176,28 @@ class MetaShadowStore:
             ).rowcount != 1:
                 raise MetaShadowHold("HOLD_SHADOW_DECISION_NOT_FOUND")
 
+    def calibration_rows(self) -> tuple[dict[str, Any], ...]:
+        """Return the minimum decision data needed for an offline human review."""
+        with self._connect() as connection:
+            rows = connection.execute(
+                """SELECT decision_id,evidence_event_id,platform,action,risk_class,
+                rationale,state,evaluation_json FROM meta_shadow_decisions
+                JOIN meta_shadow_evaluations USING(decision_id) ORDER BY decision_id"""
+            ).fetchall()
+        return tuple(
+            {
+                "decision_id": row[0],
+                "evidence_event_id": row[1],
+                "platform": row[2],
+                "action": row[3],
+                "risk_class": row[4],
+                "rationale": row[5],
+                "state": row[6],
+                "ratings": json.loads(row[7]),
+            }
+            for row in rows
+        )
+
     def report(self) -> dict[str, Any]:
         with self._connect() as connection:
             rows = connection.execute(

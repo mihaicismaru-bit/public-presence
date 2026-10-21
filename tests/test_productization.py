@@ -187,7 +187,7 @@ def test_root_ci_watches_shadow_workflow_contract():
     assert "working-directory: public-presence-os" not in workflow
 
 
-def test_read_only_real_workflow_is_manual_locked_and_persists_only_report():
+def test_read_only_real_workflow_is_manual_locked_and_encrypts_calibration_pack():
     workflow=(ROOT/".github/workflows/public-presence-read-only-real.yml").read_text(encoding="utf-8")
     triggers=workflow.split("permissions:",1)[0]
     assert "workflow_dispatch:" in triggers
@@ -209,6 +209,14 @@ def test_read_only_real_workflow_is_manual_locked_and_persists_only_report():
     assert "public_presence_os.meta_read_only_report" in workflow
     assert "actions/upload-artifact@v4" in workflow
     assert "read-only-real-report.json" in workflow
+    assert "public_presence_os.meta_calibration_pack build" in workflow
+    assert "openssl cms -encrypt -binary -aes256" in workflow
+    assert "shadow-calibration-pack.cms" in workflow
+    assert "shadow-calibration-manifest.json" in workflow
+    assert "retention-days: 7" in workflow
+    assert "test ! -e \"$RUNNER_TEMP/shadow-calibration-pack.json\"" in workflow
+    upload_sections = workflow.split("uses: actions/upload-artifact@v4")[1:]
+    assert all("shadow-calibration-pack.json\n" not in section.split("- name:", 1)[0] for section in upload_sections)
     for forbidden in ("contents: write", "actions: write", "packages: write", "META_APP_SECRET"):
         assert forbidden not in workflow
 

@@ -96,6 +96,28 @@ jobs:
             --material-change-reference "$MATERIAL_CHANGE_REFERENCE" \
             --output "$RUNNER_TEMP/read-only-real-report.json"
           cat "$RUNNER_TEMP/read-only-real-report.json" >> "$GITHUB_STEP_SUMMARY"
+      - name: Build and encrypt minimized calibration pack
+        env:
+          PYTHONPATH: src
+        run: |
+          python -m public_presence_os.meta_calibration_pack build \
+            --events-db "$RUNNER_TEMP/meta-events.sqlite3" \
+            --shadow-db "$RUNNER_TEMP/meta-shadow.sqlite3" \
+            --source-sha "$GITHUB_SHA" \
+            --output "$RUNNER_TEMP/shadow-calibration-pack.json"
+          openssl cms -encrypt -binary -aes256 \
+            -in "$RUNNER_TEMP/shadow-calibration-pack.json" \
+            -outform DER \
+            -out "$RUNNER_TEMP/shadow-calibration-pack.cms" \
+            config/calibration_artifact_recipient.crt
+          python -m public_presence_os.meta_calibration_pack manifest \
+            --plaintext-pack "$RUNNER_TEMP/shadow-calibration-pack.json" \
+            --ciphertext "$RUNNER_TEMP/shadow-calibration-pack.cms" \
+            --recipient-certificate config/calibration_artifact_recipient.crt \
+            --output "$RUNNER_TEMP/shadow-calibration-manifest.json"
+          python -c 'from pathlib import Path; import sys; Path(sys.argv[1]).unlink()' \
+            "$RUNNER_TEMP/shadow-calibration-pack.json"
+          test ! -e "$RUNNER_TEMP/shadow-calibration-pack.json"
       - name: Persist secret-free read-only evidence
         uses: actions/upload-artifact@v4
         with:
@@ -103,3 +125,12 @@ jobs:
           path: ${{ runner.temp }}/read-only-real-report.json
           if-no-files-found: error
           retention-days: 30
+      - name: Persist encrypted private calibration evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: public-presence-shadow-calibration-encrypted-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/shadow-calibration-pack.cms
+            ${{ runner.temp }}/shadow-calibration-manifest.json
+          if-no-files-found: error
+          retention-days: 7

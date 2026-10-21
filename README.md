@@ -37,8 +37,21 @@ GitHub provides two manual-only workflows bound to the `public-presence-shadow`
 environment. `PUBLIC PRESENCE SHADOW PREFLIGHT` performs the bounded identity
 probe. After that gate passes, `PUBLIC PRESENCE READ ONLY REAL` performs a
 read-only replay, materializes shadow decisions twice to prove idempotency, and
-uploads only a secret-free summary report. Both workflows keep
+uploads a secret-free summary report. It also creates a seven-day calibration
+artifact containing only an encrypted, identifier-minimized review pack and a
+secret-free manifest. The repository contains only the recipient certificate;
+the private decryption key must remain outside Git and GitHub. Both workflows keep
 `KILL_SWITCH=true`, `LIVE_WRITE=false`, and `META_THREADS_ENABLED=false`.
+
+Decrypt an authorized calibration artifact locally after download:
+
+```sh
+openssl cms -decrypt -inform DER \
+  -in shadow-calibration-pack.cms \
+  -recip config/calibration_artifact_recipient.crt \
+  -inkey /secure/local/path/calibration-private.pem \
+  -out shadow-calibration-pack.json
+```
 
 ## Reproducible package
 `PYTHONPATH=src python scripts/build_release.py`

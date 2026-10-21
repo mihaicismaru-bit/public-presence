@@ -2,6 +2,12 @@ from __future__ import annotations
 
 import json
 
+from public_presence_os.meta_calibration_pack import (
+    MANIFEST_SCHEMA,
+    PACK_SCHEMA,
+    build_calibration_pack,
+    build_encrypted_manifest,
+)
 from public_presence_os.meta_live_runtime import MetaEventStore
 from public_presence_os.meta_read_only_report import build_read_only_report
 from public_presence_os.meta_shadow_runtime import (
@@ -160,3 +166,67 @@ def test_secret_free_read_only_report_binds_event_log_and_shadow_replay(tmp_path
     assert report["safety"]["social_write_count"] == 0
     assert report["safety"]["threads"] == "HOLD_EXTERNAL"
     assert "owner-confirmed" not in json.dumps(report)
+
+
+def test_calibration_pack_minimizes_public_content_and_omits_direct_ids(tmp_path):
+    events = MetaEventStore(tmp_path / "events.sqlite3")
+    fake_token = "ghp_" + "abcdefghijklmnopqrstuvwxyz123456"
+    seed(
+        events,
+        "COMMENT",
+        "sensitive-external-id",
+        "Contact test@example.com or @person at +40 712 345 678. "
+        f"See https://example.com/private and token {fake_token}.",
+    )
+    shadow = MetaShadowStore(tmp_path / "shadow.sqlite3")
+    run_shadow(events, shadow)
+
+    pack = build_calibration_pack(
+        events_db=events.path,
+        shadow_db=shadow.path,
+        source_sha="a" * 40,
+    )
+
+    assert pack["schema"] == PACK_SCHEMA
+    assert pack["item_count"] == 1
+    serialized = json.dumps(pack)
+    assert "sensitive-external-id" not in serialized
+    assert "test@example.com" not in serialized
+    assert "@person" not in serialized
+    assert "+40 712 345 678" not in serialized
+    assert "https://example.com/private" not in serialized
+    assert fake_token not in serialized
+    assert pack["items"][0]["ratings"] == {
+        field: "UNKNOWN" for field in EVALUATION_FIELDS
+    }
+    assert pack["safety"]["external_write_count"] == 0
+
+
+def test_encrypted_manifest_contains_only_ciphertext_metadata(tmp_path):
+    events = MetaEventStore(tmp_path / "events.sqlite3")
+    seed(events, "COMMENT", "comment-1", "Where is the source?")
+    shadow = MetaShadowStore(tmp_path / "shadow.sqlite3")
+    run_shadow(events, shadow)
+    pack = build_calibration_pack(
+        events_db=events.path,
+        shadow_db=shadow.path,
+        source_sha="b" * 40,
+    )
+    plaintext = tmp_path / "pack.json"
+    plaintext.write_text(json.dumps(pack), encoding="utf-8")
+    ciphertext = tmp_path / "pack.cms"
+    ciphertext.write_bytes(b"encrypted bytes only")
+    certificate = tmp_path / "recipient.crt"
+    certificate.write_text("public certificate", encoding="utf-8")
+
+    manifest = build_encrypted_manifest(
+        plaintext_pack=plaintext,
+        ciphertext=ciphertext,
+        recipient_certificate=certificate,
+    )
+
+    assert manifest["schema"] == MANIFEST_SCHEMA
+    assert manifest["calibration_set_id"] == pack["calibration_set_id"]
+    assert manifest["plaintext_persisted"] is False
+    assert manifest["secrets_included"] is False
+    assert "Where is the source?" not in json.dumps(manifest)
