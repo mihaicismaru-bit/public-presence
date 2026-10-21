@@ -30,6 +30,7 @@ jobs:
           tests/test_productization.py::test_no_secret_material
           tests/test_productization.py::test_shadow_preflight_workflow_contract_is_locked_and_secret_free
           tests/test_productization.py::test_root_ci_watches_shadow_workflow_contract
+          tests/test_meta_limited_publish.py
 
   tests:
     needs: contract-guards

@@ -1,0 +1,29 @@
+{
+  "schema_version": "PPOS_LIMITED_WRITE_POST_V1",
+  "post_id": "ppos-2026-10-21-electric-trucks-v2",
+  "caption": "130 de milioane de euro pentru camioane electrice.\n\nFirmele de transport marfă pot primi finanțare pentru înlocuirea camioanelor de peste 3,5 tone cu unele electrice.\n\nGrantul acoperă diferența de preț dintre camionul electric și unul convențional. Vehiculul vechi trebuie casat.\n\nTermen: 16 noiembrie 2026.\n\nDetalii și documentație oficială:\nhttps://fonduri.mt.ro/documente-si-publicatii/finantari-fm/scheme-de-ajutor-de-stat/schema-de-ajutor-de-stat-3",
+  "alt_text": "Card editorial despre finanțarea camioanelor electrice, cu un camion electric alb la stația de încărcare și termenul 16 noiembrie 2026.",
+  "asset_path": "content/limited-write/2026-10-21-electric-trucks-v2/hero.jpg",
+  "asset_sha256": "22c0686161cc1fccd5aa9b98c349ffd89a4bf9d3780fc22d1a81170cb6326def",
+  "rights_evidence": {
+    "source": "OPENAI_IMAGE_GENERATION",
+    "original_or_licensed": true,
+    "third_party_logo_present": false,
+    "owner_review_required": true
+  },
+  "platforms": [
+    "FACEBOOK_PAGE",
+    "INSTAGRAM_PROFESSIONAL"
+  ],
+  "targets": {
+    "facebook_page_id": "2816314015107071",
+    "instagram_user_id": "17841429701593250"
+  },
+  "threads_enabled": false,
+  "approval": {
+    "state": "PENDING_OWNER_APPROVAL",
+    "content_commit_sha": null,
+    "payload_sha256": null,
+    "authority_receipt": null
+  }
+}
