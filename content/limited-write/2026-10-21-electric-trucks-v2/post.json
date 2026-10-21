@@ -21,9 +21,20 @@
   },
   "threads_enabled": false,
   "approval": {
-    "state": "PENDING_OWNER_APPROVAL",
-    "content_commit_sha": null,
-    "payload_sha256": null,
-    "authority_receipt": null
+    "state": "APPROVED",
+    "content_commit_sha": "b6994b08675837662baa5762152a22b456070654",
+    "payload_sha256": "a257a3c6b2d90f4e5ca803c6f459d511983811285171c16700f3a8e99bf6ff4b",
+    "authority_receipt": {
+      "receipt_id": "owner-approval-20261021-electric-trucks-v2",
+      "owner": "Mihai Cismaru",
+      "identity": "Mihai Cismaru",
+      "action_classes": [
+        "PUBLISH_APPROVED_SINGLE_IMAGE_POST"
+      ],
+      "issued_at": "2026-10-21T15:04:39Z",
+      "expires_at": "2026-10-22T15:04:39Z",
+      "nonce": "b57a60d5e267d789bedba6b266918b52",
+      "body_sha256": "da44609c58732165a62b6132f877aa0359311b7dbfcd440b709ba09711c208bd"
+    }
   }
 }

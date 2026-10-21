@@ -173,9 +173,9 @@ def test_readback_failure_holds_and_never_retries(tmp_path):
     assert transport.calls == 1
 
 
-def test_no_production_external_green_action_and_transition_stops_for_authorization():
+def test_only_exact_approved_publication_is_green_and_transition_stops_without_authorization():
     policy = json.loads((Path(__file__).parents[1] / "config" / "meta_action_risk_policy.json").read_text())
-    assert policy["external_green_actions"] == []
+    assert policy["external_green_actions"] == ["PUBLISH_APPROVED_SINGLE_IMAGE_POST"]
     evidence = promotion_evidence(
         stage="SHADOW_REAL",
         read_ingestion_pass=True,
