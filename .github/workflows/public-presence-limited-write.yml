@@ -1,4 +1,5 @@
 name: PUBLIC PRESENCE LIMITED WRITE
+run-name: PPOS limited write · ${{ inputs.mode }}
 
 on:
   workflow_dispatch:
