@@ -7,6 +7,7 @@ import re
 from typing import Any
 
 from .control import EXPECTED_ACTIVE, canonical_json, load_json, validate_policy
+from .deterministic_compile_cache import memoize_root_policy_compile
 from .live_read_only_probe_authority_lease_terminal_tombstone_recovery_journal_atomic_replace_retry_idempotency import (
     CHECKPOINT as CP81_CHECKPOINT,
     STATE as CP81_STATE,
@@ -429,6 +430,7 @@ def _build_cp82_evidence(root: Path) -> tuple[Any, Any, Any]:
     return cp81_contract, cp81_dry, dry
 
 
+@memoize_root_policy_compile
 def compile_live_read_only_probe_authority_lease_terminal_tombstone_recovery_journal_atomic_replace_retry_exhaustion_fail_closed(
     root: Path,
     policy: dict[str, Any],

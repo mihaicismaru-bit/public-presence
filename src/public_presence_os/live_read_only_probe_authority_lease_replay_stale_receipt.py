@@ -8,6 +8,7 @@ import re
 from typing import Any
 
 from .control import EXPECTED_ACTIVE, canonical_json, load_json, validate_policy
+from .deterministic_compile_cache import memoize_root_policy_compile
 from .live_read_only_probe_authority_lease_expiry_revocation import (
     CHECKPOINT as CP71_CHECKPOINT,
     STATE as CP71_STATE,
@@ -549,6 +550,7 @@ def validate_authority_lease_replay_stale_receipt_dry_run(
         raise LiveReadOnlyProbeAuthorityLeaseReplayStaleReceiptHold("HOLD_CP72_REPLAY_HASH")
 
 
+@memoize_root_policy_compile
 def compile_live_read_only_probe_authority_lease_replay_stale_receipt(
     root: Path, policy: dict[str, Any]
 ) -> LiveReadOnlyProbeAuthorityLeaseReplayStaleReceiptContract:

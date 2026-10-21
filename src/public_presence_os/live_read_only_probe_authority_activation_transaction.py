@@ -7,6 +7,7 @@ import re
 from typing import Any
 
 from .control import EXPECTED_ACTIVE, canonical_json, load_json, validate_policy
+from .deterministic_compile_cache import memoize_root_policy_compile
 from .live_read_only_probe_authority_activation_precondition import (
     CHECKPOINT as CP69_CHECKPOINT,
     STATE as CP69_STATE,
@@ -401,6 +402,7 @@ def validate_authority_activation_transaction_dry_run(transaction: AuthorityActi
         raise LiveReadOnlyProbeAuthorityActivationTransactionHold("HOLD_CP70_TRANSACTION_HASH")
 
 
+@memoize_root_policy_compile
 def compile_live_read_only_probe_authority_activation_transaction(root: Path, policy: dict[str, Any]) -> LiveReadOnlyProbeAuthorityActivationTransactionContract:
     root = root.resolve()
     _validate_policy(policy)

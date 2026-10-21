@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from .control import EXPECTED_ACTIVE, canonical_json, load_json, validate_policy
+from .deterministic_compile_cache import memoize_root_policy_compile
 from .pilot_package_acceptance import (
     STATE as CP59_STATE,
     compile_pilot_package_acceptance,
@@ -310,6 +311,7 @@ def _packet_body(
     }
 
 
+@memoize_root_policy_compile
 def compile_operator_pilot_handoff(root: Path, policy: dict) -> OperatorPilotHandoffPacket:
     root = root.resolve()
     _validate_policy(policy)

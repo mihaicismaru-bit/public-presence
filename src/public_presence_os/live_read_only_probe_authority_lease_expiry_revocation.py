@@ -8,6 +8,7 @@ import re
 from typing import Any
 
 from .control import EXPECTED_ACTIVE, canonical_json, load_json, validate_policy
+from .deterministic_compile_cache import memoize_root_policy_compile
 from .live_read_only_probe_authority_activation_transaction import (
     CHECKPOINT as CP70_CHECKPOINT,
     STATE as CP70_STATE,
@@ -402,6 +403,7 @@ def validate_authority_lease_expiry_revocation_dry_run(dry_run: AuthorityLeaseEx
         raise LiveReadOnlyProbeAuthorityLeaseExpiryRevocationHold("HOLD_CP71_LEASE_HASH")
 
 
+@memoize_root_policy_compile
 def compile_live_read_only_probe_authority_lease_expiry_revocation(root: Path, policy: dict[str, Any]) -> LiveReadOnlyProbeAuthorityLeaseExpiryRevocationContract:
     root = root.resolve()
     _validate_policy(policy)

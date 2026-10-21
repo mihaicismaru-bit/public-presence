@@ -7,6 +7,7 @@ from typing import Any, Protocol
 
 from .authorization_receipt_validator import compile_authorization_receipt_validator
 from .control import EXPECTED_ACTIVE, canonical_json, load_json, validate_policy
+from .deterministic_compile_cache import memoize_root_policy_compile
 from .live_read_only_probe_evidence_import import (
     LiveReadOnlyProbeEvidenceImportContract,
     compile_live_read_only_probe_evidence_import,
@@ -716,6 +717,7 @@ def validate_single_session_harness_receipt(
         raise LiveReadOnlyProbeSingleSessionHarnessHold("HOLD_CP66_RECEIPT_HASH_BINDING_INVALID")
 
 
+@memoize_root_policy_compile
 def compile_live_read_only_probe_single_session_harness(
     root: Path,
     policy: dict,

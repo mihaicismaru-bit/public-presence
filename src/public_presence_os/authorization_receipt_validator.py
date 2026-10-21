@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from .control import EXPECTED_ACTIVE, canonical_json, load_json, validate_policy
+from .deterministic_compile_cache import memoize_root_policy_compile
 from .control_plane_authorization_intake import (
     ControlPlaneAuthorizationIntakeContract,
     AuthorizationShapeReceipt,
@@ -515,6 +516,7 @@ def _synthetic_submission(cp61_contract: ControlPlaneAuthorizationIntakeContract
     }
 
 
+@memoize_root_policy_compile
 def compile_authorization_receipt_validator(
     root: Path,
     policy: dict,

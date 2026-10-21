@@ -15,6 +15,7 @@ from .control import (
     validate_policy,
     validate_repo,
 )
+from .deterministic_compile_cache import memoize_root_policy_compile
 
 MODEL_VERSION = "PPOS_PILOT_PACKAGE_ACCEPTANCE_V1"
 ENGINE_VERSION = "ppos-pilot-package-acceptance-v1.0.0"
@@ -322,6 +323,7 @@ def _receipt_body(
     }
 
 
+@memoize_root_policy_compile
 def compile_pilot_package_acceptance(root: Path, policy: dict) -> PilotPackageAcceptanceReceipt:
     root = root.resolve()
     _validate_policy(policy)
