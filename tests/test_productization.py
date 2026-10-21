@@ -96,15 +96,30 @@ def test_no_paid_or_live_runtime_dependencies():
         pat=rf"^\s*(?:from\s+{re.escape(package)}(?:\.|\s)|import\s+{re.escape(package)}(?:\.|\s|$))"
         assert not re.search(pat,txt,re.I|re.M)
 
-def test_the_only_live_network_boundary_is_get_only_and_allowlisted():
-    from public_presence_os.pilot_package_acceptance import AUDITED_LIVE_NETWORK_BOUNDARIES
+def test_live_network_boundaries_are_explicit_and_method_bounded():
+    from public_presence_os.pilot_package_acceptance import (
+        AUDITED_GET_ONLY_NETWORK_BOUNDARIES,
+        AUDITED_LIMITED_WRITE_NETWORK_BOUNDARIES,
+        AUDITED_LIVE_NETWORK_BOUNDARIES,
+    )
 
-    assert AUDITED_LIVE_NETWORK_BOUNDARIES == {"src/public_presence_os/meta_live_runtime.py"}
-    source = (ROOT/next(iter(AUDITED_LIVE_NETWORK_BOUNDARIES))).read_text(encoding="utf-8")
+    assert AUDITED_GET_ONLY_NETWORK_BOUNDARIES == {"src/public_presence_os/meta_live_runtime.py"}
+    assert AUDITED_LIMITED_WRITE_NETWORK_BOUNDARIES == {"src/public_presence_os/meta_limited_publish.py"}
+    assert AUDITED_LIVE_NETWORK_BOUNDARIES == (
+        AUDITED_GET_ONLY_NETWORK_BOUNDARIES | AUDITED_LIMITED_WRITE_NETWORK_BOUNDARIES
+    )
+    source = (ROOT/next(iter(AUDITED_GET_ONLY_NETWORK_BOUNDARIES))).read_text(encoding="utf-8")
     assert 'ALLOWED_HOSTS = ("graph.facebook.com", "graph.threads.net")' in source
     assert 'method="GET"' in source
     for method in ('method="POST"', 'method="PUT"', 'method="PATCH"', 'method="DELETE"'):
         assert method not in source
+
+    limited = (ROOT/next(iter(AUDITED_LIMITED_WRITE_NETWORK_BOUNDARIES))).read_text(encoding="utf-8")
+    assert 'method not in {"GET", "POST"}' in limited
+    assert 'EXPECTED_PLATFORMS = ("FACEBOOK_PAGE", "INSTAGRAM_PROFESSIONAL")' in limited
+    assert 'ACTION_CLASS = "PUBLISH_APPROVED_SINGLE_IMAGE_POST"' in limited
+    for method in ('method="PUT"', 'method="PATCH"', 'method="DELETE"'):
+        assert method not in limited
 
 def test_no_secret_material():
     text_suffixes={".py",".json",".md",".toml",".yml",".yaml",".txt"}

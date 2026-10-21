@@ -44,11 +44,18 @@ FORBIDDEN_IMPORT_ROOTS = (
     "stripe",
 )
 
-# CP59 remains an offline compiler. The separately invoked, GET-only live runtime
-# is the sole audited network boundary and is never imported by a CP59 workflow.
-AUDITED_LIVE_NETWORK_BOUNDARIES = {
+# CP59 remains an offline compiler. Separately invoked live runtimes are audited
+# network boundaries and are never imported by a CP59 workflow. The read runtime
+# is GET-only; the limited-write runtime is manual-only and independently gated.
+AUDITED_GET_ONLY_NETWORK_BOUNDARIES = {
     "src/public_presence_os/meta_live_runtime.py",
 }
+AUDITED_LIMITED_WRITE_NETWORK_BOUNDARIES = {
+    "src/public_presence_os/meta_limited_publish.py",
+}
+AUDITED_LIVE_NETWORK_BOUNDARIES = (
+    AUDITED_GET_ONLY_NETWORK_BOUNDARIES | AUDITED_LIMITED_WRITE_NETWORK_BOUNDARIES
+)
 
 RAW_SECRET_PATTERNS = (
     re.compile(r"authorization\s*:\s*bearer\s+[a-z0-9._~+/=-]{16,}", re.I),

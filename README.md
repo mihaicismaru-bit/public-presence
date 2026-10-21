@@ -43,6 +43,16 @@ secret-free manifest. The repository contains only the recipient certificate;
 the private decryption key must remain outside Git and GitHub. Both workflows keep
 `KILL_SWITCH=true`, `LIVE_WRITE=false`, and `META_THREADS_ENABLED=false`.
 
+The manual-only `PUBLIC PRESENCE LIMITED WRITE` workflow is the controlled
+exception for an exact owner-approved post. It defaults to validation with the
+kill switch engaged. Execution is admitted only when the committed asset,
+caption, destination ids, content hash, time-bounded owner receipt, explicit
+dispatch hash and confirmation phrase all match. Before either platform write
+it performs a live exact-caption dedup read; after a write it requires live
+readback and persists a secret-free receipt. Threads remains disabled. The
+workflow never publishes an unapproved manifest and never retries an ambiguous
+write.
+
 Decrypt an authorized calibration artifact locally after download:
 
 ```sh

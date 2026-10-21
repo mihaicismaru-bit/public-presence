@@ -1,0 +1,131 @@
+name: PUBLIC PRESENCE LIMITED WRITE
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Validate only or execute the exact approved post'
+        required: true
+        type: choice
+        options:
+          - validate
+          - execute
+        default: validate
+      owner_approval_id:
+        description: 'Exact non-secret approval receipt id stored in the manifest'
+        required: false
+        type: string
+      approved_payload_sha256:
+        description: 'Exact payload hash shown during owner approval'
+        required: false
+        type: string
+      confirm_exact:
+        description: 'For execute only: PUBLISH_THIS_EXACT_POST_NOW'
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: public-presence-limited-write
+  cancel-in-progress: false
+
+jobs:
+  exact-approved-post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment: public-presence-shadow
+    env:
+      MANIFEST: content/limited-write/2026-10-21-electric-trucks-v2/post.json
+      META_PAGE_ACCESS_TOKEN: ${{ secrets.META_PAGE_ACCESS_TOKEN }}
+      META_PAGE_ID: "2816314015107071"
+      META_IG_USER_ID: "17841429701593250"
+      META_THREADS_ENABLED: "false"
+      META_GRAPH_API_VERSION: "v26.0"
+      KILL_SWITCH: ${{ inputs.mode == 'execute' && 'false' || 'true' }}
+      LIVE_WRITE: ${{ inputs.mode == 'execute' && 'true' || 'false' }}
+      OWNER_APPROVAL_ID: ${{ inputs.owner_approval_id }}
+      APPROVED_PAYLOAD_SHA256: ${{ inputs.approved_payload_sha256 }}
+    steps:
+      - name: Checkout exact source without persisted credentials
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install package
+        run: python -m pip install -e .
+      - name: Validate exact asset and manifest
+        env:
+          PYTHONPATH: src
+        run: python -m public_presence_os.meta_limited_publish validate --manifest "$MANIFEST" --root .
+      - name: Resolve secret-free approved bindings
+        id: binding
+        shell: bash
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          from pathlib import Path
+
+          manifest = json.loads(Path("content/limited-write/2026-10-21-electric-trucks-v2/post.json").read_text())
+          approval = manifest["approval"]
+          print("approval_state=" + approval["state"])
+          print("content_sha=" + str(approval["content_commit_sha"] or ""))
+          print("asset_path=" + manifest["asset_path"])
+          print("payload_sha256=" + str(approval["payload_sha256"] or ""))
+          print("receipt_id=" + str((approval["authority_receipt"] or {}).get("receipt_id", "")))
+          PY
+      - name: Prove validation mode remains locked
+        if: inputs.mode == 'validate'
+        shell: bash
+        run: |
+          test "$KILL_SWITCH" = "true"
+          test "$LIVE_WRITE" = "false"
+          test "$META_THREADS_ENABLED" = "false"
+          echo "PPOS_LIMITED_WRITE_VALIDATE_ONLY_PASS" >> "$GITHUB_STEP_SUMMARY"
+      - name: Verify exact execution authorization and source binding
+        if: inputs.mode == 'execute'
+        shell: bash
+        env:
+          CONTENT_SHA: ${{ steps.binding.outputs.content_sha }}
+          ASSET_PATH: ${{ steps.binding.outputs.asset_path }}
+          MANIFEST_PAYLOAD_SHA256: ${{ steps.binding.outputs.payload_sha256 }}
+          MANIFEST_RECEIPT_ID: ${{ steps.binding.outputs.receipt_id }}
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF" = "refs/heads/main"
+          test "${{ steps.binding.outputs.approval_state }}" = "APPROVED"
+          test "${{ inputs.confirm_exact }}" = "PUBLISH_THIS_EXACT_POST_NOW"
+          test -n "$CONTENT_SHA"
+          test "$MANIFEST_PAYLOAD_SHA256" = "${{ inputs.approved_payload_sha256 }}"
+          test "$MANIFEST_RECEIPT_ID" = "${{ inputs.owner_approval_id }}"
+          test "$KILL_SWITCH" = "false"
+          test "$LIVE_WRITE" = "true"
+          test "$META_THREADS_ENABLED" = "false"
+          git cat-file -e "$CONTENT_SHA^{commit}"
+          git show "$CONTENT_SHA:$ASSET_PATH" > "$RUNNER_TEMP/approved-asset.jpg"
+          EXPECTED_ASSET_SHA="$(python -c 'import json,sys; print(json.load(open(sys.argv[1]))["asset_sha256"])' "$MANIFEST")"
+          test "$(sha256sum "$RUNNER_TEMP/approved-asset.jpg" | cut -d' ' -f1)" = "$EXPECTED_ASSET_SHA"
+      - name: Execute one bounded Facebook plus Instagram publication
+        if: inputs.mode == 'execute'
+        env:
+          PYTHONPATH: src
+          CONTENT_SHA: ${{ steps.binding.outputs.content_sha }}
+        run: >-
+          python -m public_presence_os.meta_limited_publish execute
+          --manifest "$MANIFEST"
+          --root .
+          --ledger "$RUNNER_TEMP/limited-write.sqlite3"
+          --asset-url "https://raw.githubusercontent.com/mihaicismaru-bit/public-presence/$CONTENT_SHA/content/limited-write/2026-10-21-electric-trucks-v2/hero.jpg"
+          --receipt "$RUNNER_TEMP/limited-write-receipt.json"
+      - name: Persist secret-free limited-write receipt
+        if: always() && inputs.mode == 'execute'
+        uses: actions/upload-artifact@v4
+        with:
+          name: public-presence-limited-write-${{ github.run_id }}
+          path: ${{ runner.temp }}/limited-write-receipt.json
+          if-no-files-found: error
+          retention-days: 30
