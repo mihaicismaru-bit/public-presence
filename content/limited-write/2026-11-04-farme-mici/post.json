@@ -21,9 +21,20 @@
   },
   "threads_enabled": false,
   "approval": {
-    "state": "PENDING_OWNER_APPROVAL",
-    "content_commit_sha": null,
-    "payload_sha256": null,
-    "authority_receipt": null
+    "state": "APPROVED",
+    "content_commit_sha": "f401b76fc21b1111eda9944d0e181c320b918310",
+    "payload_sha256": "2624ce98ec27919918dd2be234e7dde58984a2a73fbf7a80a6ab21344d2fd2bc",
+    "authority_receipt": {
+      "receipt_id": "owner-approval-20261104-dr14-small-farms",
+      "owner": "Mihai Cismaru",
+      "identity": "Mihai Cismaru",
+      "action_classes": [
+        "PUBLISH_APPROVED_SINGLE_IMAGE_POST"
+      ],
+      "issued_at": "2026-11-04T17:08:00Z",
+      "expires_at": "2026-11-04T18:30:00Z",
+      "nonce": "e5e98b573e6cd3f808ebb5aa3ab87ea6",
+      "body_sha256": "62e807228e2caae5f8e2bc27a37858ef053ca85d0a0f66e7b552deedb96e8d1a"
+    }
   }
 }
