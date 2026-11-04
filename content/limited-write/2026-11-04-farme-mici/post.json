@@ -1,0 +1,29 @@
+{
+  "schema_version": "PPOS_LIMITED_WRITE_POST_V1",
+  "post_id": "ppos-2026-11-04-farme-mici",
+  "caption": "Fonduri pentru ferme mici.\n\nDR-14 finanțează investiții în ferme de mici dimensiuni: legumicultură, zootehnie și alte sectoare agricole.\n\nTermen: 16 noiembrie 2026, ora 16:00.\n\nFondurile disponibile se actualizează pe măsură ce sunt depuse sau retrase proiecte.\n\nDetalii oficiale și depunere:\nhttps://depunerepspac.afir.ro/Sesiune/Lista",
+  "alt_text": "Fermă mică de legume, cu solar și culturi în aer liber, într-un peisaj rural. Textul anunță fonduri pentru ferme mici și termenul de 16 noiembrie.",
+  "asset_path": "content/limited-write/2026-11-04-farme-mici/hero.jpg",
+  "asset_sha256": "1e6b1f866e6a048d5a9a797ecc6f7dd3957725410fa221c35d22619f4796a7a7",
+  "rights_evidence": {
+    "source": "OPENAI_IMAGE_GENERATION",
+    "original_or_licensed": true,
+    "third_party_logo_present": false,
+    "owner_review_required": true
+  },
+  "platforms": [
+    "FACEBOOK_PAGE",
+    "INSTAGRAM_PROFESSIONAL"
+  ],
+  "targets": {
+    "facebook_page_id": "2816314015107071",
+    "instagram_user_id": "17841429701593250"
+  },
+  "threads_enabled": false,
+  "approval": {
+    "state": "PENDING_OWNER_APPROVAL",
+    "content_commit_sha": null,
+    "payload_sha256": null,
+    "authority_receipt": null
+  }
+}
